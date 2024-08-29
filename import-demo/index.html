@@ -332,7 +332,7 @@
         const dataSource = ref([]) // antdv 表格数据源
         const resultData = ref([]) // Excel 解析完成后的数据结构数组
         const examples = reactive([example1, example2, example3, example4]) // 示例数据
-        const textKeyMapStr = ref('') // Excel 表头字符串与 dataKey 之间的映射 JSON 数据
+        const textKeyMapStr = ref(localStorage.getItem('textKeyMapStr') || '') // Excel 表头字符串与 dataKey 之间的映射 JSON 数据
 
         // 下载示例 excel 文件
         function downloadExampleExcel(fileUrl, fileName) {
@@ -373,6 +373,7 @@
               columns.value = headerColumns
               dataSource.value = dataSourceList
               resultData.value = dataList
+              localStorage.setItem('textKeyMapStr', textKeyMapStr.value)
             } catch (error) {
               console.log(error)
               alert('解析出错，请检查 textKeyMap 是否为正确的 JSON 数据')
